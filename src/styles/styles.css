@@ -1,0 +1,41 @@
+body {
+    width: 100%;
+    background-color: #1b1a17;
+  }
+  
+  .song-item {
+    height: 300px;
+    padding: 100px;
+    color: #1b1a17;
+    justify-content: center;
+    text-align: center;
+  }
+  .song-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #e6d5b8;
+  }
+  .singer {
+    text-align: center;
+    font-size: 18px;
+    color: white;
+  }
+  .album-title {
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    padding-bottom: 20px;
+  }
+
+  span{
+      margin-top: 20px;
+  }
+  .btn {
+    display: grid;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+  }
