@@ -1,11 +1,16 @@
 import './styles/styles.css';
-import Task from './component/Playlist';
+import Playlist from './component/Playlist';
+import Button from './component/Button';
+import Mini from './component/Mini';
+
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Task linkSource="https://i.scdn.co/image/ab67616d0000b273e8b066f70c206551210d902b"/>
+        <Playlist />
+        <Mini />
+        <Button />
       </header>
     </div>
   );
