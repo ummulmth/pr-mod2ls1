@@ -1,16 +1,11 @@
-import './styles/styles.css';
-import Playlist from './component/Playlist';
-import Button from './component/Button';
-import Mini from './component/Mini';
-
+import './App.css';
+import Track from './component/Track';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Playlist />
-        <Mini />
-        <Button />
+        <Track />
       </header>
     </div>
   );

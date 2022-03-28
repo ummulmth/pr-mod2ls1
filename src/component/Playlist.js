@@ -1,15 +1,22 @@
-import data from "../data/data";
+import React from 'react';
 
-export default function Playlist() {
+const Playlist=({title,artist,img})=> {
+    const handlePlay = () => {
+    console.log("Selected");
+    }
+  return (
+    <div className='Playlist'>
+      <div className='pl-wrapper'>
+        <img src={img} alt={title} className="img"/>
 
-    return (
-        <div class="song-item">
-          <img
-            src={data.album.images[1].url}
-          />
-          <div class="song-title">Bohemian Rhapsody</div>
-          <div class="singer">{data.artists[0].name}</div>
-          <div class="album-title">{data.album.name}</div>
-        </div>
-    );
+        <h3 className="pl-album">{title}</h3>
+        <h3 className="pl-artist">{artist}</h3>
+      </div>
+      <div className='btn-wrapper'>
+      <button className="btn-select" onClick={handlePlay}>Select</button>
+      </div>
+    
+    </div>
+  )
 }
+export default Playlist;
