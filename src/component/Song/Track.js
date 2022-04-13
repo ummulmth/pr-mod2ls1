@@ -23,4 +23,4 @@ const Track = ({title, artist, url}) => {
     )
 }
 
-export default Track;
+export default Track; 
