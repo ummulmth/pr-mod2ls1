@@ -1,8 +1,7 @@
 import React from "react";
 import { Component } from "react";
-// import SearchBar from "../Search/SearchBar";
 import Track from "../Song/Track";
-// import SearchBar from "../Search/SearchBar";
+import SearchBar from "../Search/SearchBar";
 // import config from "./config/config";
 
 class Pages extends Component {
@@ -24,7 +23,7 @@ class Pages extends Component {
     getTracks = async (e) => {
         e.preventDefault()
         const tracks = await fetch(
-            `https://api.spotify.com/v1/search?q=${this.state.text}&type=track&limit=10`, {
+            `https://api.spotify.com/v1/search?q=${this.state.text}&type=track&limit=8`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${this.token}`
@@ -35,14 +34,13 @@ class Pages extends Component {
         console.log(tracks.tracks.items)
     }
 
-    handleInput= (e) => {
-        this.setState({ text: e.target.value })
-    }
+    // handleInput = (e) => {
+    //     this.setState({ text: e.target.value })
+    // }
 
     logOut = () => {
         this.setState({token: ""})
     } 
-
     render() {
         return (
             <div >
@@ -55,25 +53,19 @@ class Pages extends Component {
 
                 {this.state.token ?
                     <div>
-                        <div className="button-container">
-                            <h3>Search Track Here</h3>
-                            <div>
-                                <form onSubmit={this.getTracks}>
-                                    <input onChange={this.handleInput} className="search" type="text" placeholder="Search Track"></input>
-                                    <button>Submit</button>
-                                </form>
-                            </div>
+                        <div className="btn-container">
+                        <h3>Search Track Here</h3>
+                        <form onSubmit={this.getTracks}>
+                            <SearchBar />
+                        </form>
+                            
                         </div>
                         <div className="container" >
                             {this.state.tracks.map(e => (
-                                <div className="wrapper">
-                                    <div className="title-container">
-                                        <Track url={e.album.images[1].url} title={e.name} artist={e.artists[0].name} />
-                                    </div>
-                                </div>
+                            <Track url={e.album.images[1].url} title={e.name} artist={e.artists[0].name} />    
                             ))}
                         </div>
-                        </div>
+                    </div>
                             : <div className="button-container"><h2>Please Login</h2></div>}
                 </div>
     
