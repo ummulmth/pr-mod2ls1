@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ToastContainer } from "react-toastify";
 import config from "./config";
 
 function SearchBar({ accessToken, onSuccess }) {
@@ -31,6 +32,7 @@ function SearchBar({ accessToken, onSuccess }) {
   
     return (
       <div>
+        <ToastContainer />
         <form className="form-search" onSubmit={handleSubmit}>
           <input
             type="text"

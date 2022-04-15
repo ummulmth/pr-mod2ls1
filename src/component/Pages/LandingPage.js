@@ -2,6 +2,7 @@ import React, { useEffect, useState} from "react";
 import Track from "../Song/Track";
 import config from "./config";
 import SearchBar from "./SearchBar";
+import FormPlaylist from "./FormPlaylist";
 
 function LandingPage () {
   const [accessToken, setAccessToken] = useState('');
@@ -72,6 +73,13 @@ function LandingPage () {
                 />
               ))}
             </div>
+          {isAuthorize &&(
+            <div>
+              <h3>Create Your Playlist</h3>
+              <FormPlaylist accessToken={accessToken } />
+            </div>
+          )}
+            
           </div>
 
       </div>
