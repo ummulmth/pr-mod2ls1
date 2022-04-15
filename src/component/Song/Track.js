@@ -1,26 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Track = ({title, artist, url}) => {
-    const handlePlay = ()=> {
-        console.log("Selected");
+function Track({ imageUrl, title, artist, toggleSelect }) {
+    const [isSelected, setIsSelected] = useState(false);
+  
+    const handleToggleSelect = () => {
+      setIsSelected(!isSelected);
+      toggleSelect();
     }
-
-    return(
-        <div className="track-container">
-            <div>
-                <img src={url} alt="cover" />
-            </div>
-            <div className="song-container">
-                <div className="song-wrapper">
-                    <p className="title">{title}</p>
-                    <p className="artist">{artist}</p>
-                </div>
-                <div className='btn-wrapper'>
-                  <button className="btn-select" onClick={handlePlay}>Select</button>
-                </div>  
-            </div>
+  
+    return (
+      <div className="playlist-card">
+        <div className="playlist-card_image">
+          <img src={imageUrl} alt={title} />
         </div>
-    )
-}
+  
+        <div className="playlist-card_data">
+          <div className="playlist-card_content">
+            <h3 className="playlist-card_title">{title}</h3>
+            <p className="playlist-card_artist">{artist}</p>
+          </div>
+  
+          <div className="playlist-card_action">
+            <button onClick={handleToggleSelect}>{isSelected ? 'Deselect' : 'Select'}</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
 export default Track; 
