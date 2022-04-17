@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { getTracks } from "../Utils/configSpotifiy";
+import { useSelector } from "react-redux";
 
-const SearchBar = ({ token, searchResult }) => {
+const SearchBar =({searchResult}) => {
+  const token = useSelector((state) => state.auth.token);
   const [text, setText] = useState("");
 
   const handleInput = (e) => {

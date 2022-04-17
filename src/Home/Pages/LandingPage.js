@@ -6,29 +6,32 @@ import SearchBar from "./SearchBar";
 import FormPlaylist from "../Utils/FormPlaylist";
 import { ToastContainer, toast } from "react-toastify";
 import { getProfile } from "../Utils/configSpotifiy";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../sliceAcc/sliceAcc";
 
 const LandingPage = () => {
-  const [token, setToken] = useState(""); //token
-  const [isAuthorize, setIsAuthorize] = useState(false); //login
+
   const [tracks, setTracks] = useState([]);
   const [selectedTracksUri, setSelectedTracksUri] = useState([]);
   const [selectedTracks, setSelectedTracks] = useState([]);
-  const [user, setUser] = useState({});
-
+  const auth = useSelector((state) => state.auth.login);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const token = new URLSearchParams(window.location.hash).get(
+    const access_token = new URLSearchParams(window.location.hash).get(
       "#access_token"
     );
 
-    if (token !== null) {
-      setToken(token);
-      setIsAuthorize(token !== null);
-
+    if (access_token !== null) {
       const userProfile = async () => {
         try {
-          const response = await getProfile(token);
-          setUser(response);
+          const response = await getProfile(access_token);
+          dispatch(
+            login({
+              token: access_token,
+              user: response,
+            })
+          )
         } catch (e) {
           toast.error(e);
         }
@@ -63,8 +66,13 @@ const LandingPage = () => {
     }
   };
   const logOut = () => {
-    setToken("");
-    setIsAuthorize(false);
+    dispatch(
+      login({
+          token: "",
+          login: false,
+          user: {}
+      })
+  )
   };
 
   console.log(selectedTracksUri);
@@ -72,29 +80,24 @@ const LandingPage = () => {
   return (
     <div>
       <ToastContainer />
-      {!isAuthorize && (
+      {!auth && (
         <div className="login-container">
           <h2>Please Login</h2>
           <a href={getSpotifyLinkAuthorize()}>Login</a>
         </div>
       )}
-      {isAuthorize && (
+      {auth && (
         <div className="home-container">
           <div className="btn-container">
             <button href="#" onClick={logOut}>Log Out</button>
             <h3>Search Track</h3>
             <div>
-              <SearchBar
-                token={token}
-                searchResult={(tracks) => searchResultSuccess(tracks)}
-              />
+              <SearchBar searchResult={(tracks) => searchResultSuccess(tracks)} />
             </div>
             {tracks.length > 0 && (
               <div className="playlist-container">
                 <h2>Create Playlist</h2>
                 <FormPlaylist
-                  token={token}
-                  userId={user.id}
                   uri={selectedTracksUri}
                 />
               </div>

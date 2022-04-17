@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { addTracksToPlaylist, createPlaylist } from "./configSpotifiy";
+import { useSelector } from "react-redux";
 
-
-
-const FormPlaylist = ({ token, userId, uri }) => {
+const FormPlaylist = ({ uri }) => {
+    const token = useSelector((state) => state.auth.token);
+    const userId = useSelector((state) => state.auth.user.id);
     const [text, setText] = useState({
         title: "",
         description: "",
