@@ -1,64 +1,174 @@
-body {
-    width: 100%;
-    background-color: #1b1a17;
+.container {
+  background-color: black;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  justify-content: center;
+  grid-gap: 0.5em;
+  margin: auto;
 }
 
-.song-item {
-    height: 300px;
-    padding: 100px;
-    color: #1b1a17;
-    justify-content: center;
-    text-align: center;
+.wrapper {
+  display: flex;
+  justify-content: center;
 }
-
-.song-title {
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
-    margin: 10px 0;
-    color: #e6d5b8;
+.title-container {
+ background-color: rgba(155, 155, 155, 0.096);
+ border-radius: 7px;
+ width: 50%;
+ margin: 30px;
+ padding: 20px;
+ box-sizing: border-box;
+ 
 }
-
-.singer {
-    text-align: center;
-    font-size: 18px;
-    color: white;
+.title-container:hover {
+  background-color: rgba(212, 211, 211, 0.192);
+  transition: 0.3s;
 }
-
- .album-title {
-    text-align: center;
-    font-size: 18px;
-    color: white;
-    padding-bottom: 20px;
+div .artist {
+  font-family: 'Poppins', sans-serif;
+  color: rgb(164,179,164);
+  font-weight: 600;
 }
-
-span{
-      margin-top: 20px; 
-}
-
-.btn {
-    display: grid;
-    margin: auto;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-}
-
-.mini {
-  margin-top: 20px;
-  float: center;
-}
-
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.mini p {
-  text-align: center;
-  line-height: 0.2;
+div .title {
   color: white;
-  position: relative;
-  width: 100%;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+.btn-submit {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  color: white;
+  background-color: rgb(3,187,78);
+  padding: 5px 35px;
+  border: none;
+  border-radius: 13px;
+  letter-spacing: 1px;
+}
+
+div .btn {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  color: white;
+  background-color: rgb(3,187,78);
+  padding: 5px 35px;
+  border: none;
+  border-radius: 13px;
+  letter-spacing: 1px;
+  
+}
+.btn-selected {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  color: black;
+  background-color: rgb(255, 255, 255);
+  padding: 5px 35px;
+  border: none;
+  border-radius: 13px;
+  letter-spacing: 1px;
+}
+.btn-selected:hover {
+  transform: scale(1.15);
+  transition: 0.05s;
+}
+.btn:hover {
+  transform: scale(1.15);
+  transition: 0.05s;
+}
+a {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  width: 150px;
+  padding: 5px 35px;
+  border-radius: 13px;
+  margin-left: 20px;
+  border: 1px solid white;
+  cursor: pointer;
+}
+.btn-container {
+  background-color: black;
+  display: flex;
+  height: 755px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.form-search {
+  background-color: rgb(87, 87, 87);
+  margin-right: 20px;
+  border: 1px solid rgb(87, 87, 87);
+  height: 30px;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  font-size: 15px;
+}
+h2 {
+  color: white;
+}
+h3 {
+  color: white;
+}
+.login-container {
+  background-color: black;
+  height: 755px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.home-container {
+  background-color: black;
+  height: 100%
+}
+
+.playlist-container {
+  margin-top: 100px;
+  background-color: rgba(34, 34, 34, 0.712);
+  width: 575px;
+  padding: 15px;
+  padding-bottom: 30px;
+  border-radius: 10px;
+}
+
+label {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  font-size: 15px;
+  margin-right: 10px;
+  margin-left: -320px;
+}
+
+#title {
+  background-color: rgb(87, 87, 87);
+  margin-right: 20px;
+  margin-bottom: 20px;
+  border: 1px solid rgb(87, 87, 87);
+  height: 40px;
+  width: 400px;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  font-size: 15px;
+}
+#description {
+    background-color: rgb(87, 87, 87);
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border: 1px solid rgb(87, 87, 87);
+
+    height: 80px;
+    width: 400px;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    font-size: 15px;
+}
+
+.form-playlist {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

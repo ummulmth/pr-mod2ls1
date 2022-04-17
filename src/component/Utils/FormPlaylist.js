@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import config from "./config";
-import axios from "axios";
+import { addTracksToPlaylist, createPlaylist } from "./configSpotifiy";
+
+
 
 const FormPlaylist = ({ token, userId, uri }) => {
     const [text, setText] = useState({
@@ -32,37 +33,6 @@ const FormPlaylist = ({ token, userId, uri }) => {
 
         return isValid;
 
-    }
-    
-    const createPlaylist = async (token, userId, {name, description}) => {
-        const response = await axios.post(
-            `${config.SPOTIFY_BASE_URL}/users/${userId}/playlists`,
-            JSON.stringify({name, description, public: false, collaborative: false}),
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                }
-            }
-        )
-        console.log(response.data)
-        return response.data;
-    }
-    
-    const addTracksToPlaylist = async (token, playlistId, uris) => {
-        const response = await axios.post(
-            `${config.SPOTIFY_API_URL}/playlists/${playlistId}/tracks`,
-            JSON.stringify({uris}),
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                }
-            }
-    
-        )
-        console.log(response.data)
-        return response.data;
     }
 
     const handleSubmit = async (e) => {

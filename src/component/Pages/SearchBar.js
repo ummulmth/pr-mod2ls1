@@ -1,51 +1,34 @@
 import React, { useState } from "react";
-import { ToastContainer } from "react-toastify";
-import config from "./config";
+import { ToastContainer, toast } from "react-toastify";
+import { getTracks } from "../Utils/configSpotifiy";
 
-function SearchBar({ accessToken, onSuccess }) {
-  const [text, setText] = useState('');
+const SearchBar = ({ token, searchResult }) => {
+  const [text, setText] = useState("");
 
   const handleInput = (e) => {
     setText(e.target.value);
-  }
+  };
 
-  const handleSubmit = async (e) => {
+  const searchTracks = async (e) => {
     e.preventDefault();
-
-    const requestOptions = {
-      headers: {
-        'Authorization': 'Bearer ' + accessToken,
-        'Content-Type': 'application/json',
-      },
-    };
-
     try {
-      const response = await fetch(`${config.SPOTIFY_BASE_URL}/search?type=track&q=${text}`, requestOptions)
-        .then((data) => data.json());
-
-      const tracks = response.tracks.items;
-      onSuccess(tracks);
+      const data = await getTracks(text, token);
+      const tracks = data.tracks.items;
+      searchResult(tracks);
     } catch (e) {
-      alert(e);
+      toast.error(e);
     }
-  }
-  
-    return (
-      <div>
-        <ToastContainer />
-        <form className="form-search" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Search..."
-            className="form-search_input"
-            required
-            value={text}
-            onChange={handleInput}
-          />
-          <button type="submit">Search</button>
-        </form>
-      </div>
-    )
-  }
-  
-  export default SearchBar; 
+  };
+
+  return (
+    <div>
+      <ToastContainer />
+      <form onSubmit={searchTracks}>
+        <input onChange={handleInput} className="form-search" type="text" placeholder="Search Track Here..."></input>
+        <button className="btn-submit">Submit</button>
+      </form>
+    </div>
+  );
+}
+
+export default SearchBar;

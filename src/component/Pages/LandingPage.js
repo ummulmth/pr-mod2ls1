@@ -1,20 +1,41 @@
-import React, { useEffect, useState} from "react";
-import Track from "../Song/Track";
+import React, { useEffect, useState } from "react";
+import '../../styles/styles.css'
+import Track from "../Utils/Track";
 import config from "./config";
 import SearchBar from "./SearchBar";
-import FormPlaylist from "./FormPlaylist";
+import FormPlaylist from "../Utils/FormPlaylist";
+import { ToastContainer, toast } from "react-toastify";
+import { getProfile } from "../Utils/configSpotifiy";
 
-function LandingPage () {
-  const [accessToken, setAccessToken] = useState('');
-  const [isAuthorize, setIsAuthorize] = useState(false);
+const LandingPage = () => {
+  const [token, setToken] = useState(""); //token
+  const [isAuthorize, setIsAuthorize] = useState(false); //login
   const [tracks, setTracks] = useState([]);
   const [selectedTracksUri, setSelectedTracksUri] = useState([]);
+  const [selectedTracks, setSelectedTracks] = useState([]);
+  const [user, setUser] = useState({});
+
 
   useEffect(() => {
-    const accessToken = new URLSearchParams(window.location.hash).get('#access_token');
+    const token = new URLSearchParams(window.location.hash).get(
+      "#access_token"
+    );
 
-    setAccessToken(accessToken);
-    setIsAuthorize(accessToken !== null);
+    if (token !== null) {
+      setToken(token);
+      setIsAuthorize(token !== null);
+
+      const userProfile = async () => {
+        try {
+          const response = await getProfile(token);
+          setUser(response);
+        } catch (e) {
+          toast.error(e);
+        }
+      };
+
+      userProfile();
+    }
   }, []);
 
   const getSpotifyLinkAuthorize = () => {
@@ -22,68 +43,82 @@ function LandingPage () {
     const clientId = process.env.REACT_APP_CLIENT_ID;
 
     return `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=http://localhost:3000/callback/&state=${state}&scope=${config.SCOPE}`;
-  }
+  };
 
-  const filterSelectedTracks = () => {
-    return tracks.filter(track => selectedTracksUri.includes(track.uri));
-  }
-
-  const onSuccessSearch = (searchTracks) => {
-    const selectedTracks = filterSelectedTracks();
-    const searchDistincTracks = searchTracks.filter(track => !selectedTracksUri.includes(track.uri));
-
-    setTracks([...selectedTracks, ...searchDistincTracks]);
-  }
+  const searchResultSuccess = (data) => {
+    const selectedTracks = data.filter((track) =>
+      selectedTracksUri.includes(track.uri)
+    );
+    setTracks([...new Set([...selectedTracks, ...data])]);
+  };
 
   const toggleSelect = (track) => {
     const uri = track.uri;
-
     if (selectedTracksUri.includes(uri)) {
-      setSelectedTracksUri(selectedTracksUri.filter(item => item !== uri));
+      setSelectedTracksUri(selectedTracksUri.filter((item) => item !== uri));
+      setSelectedTracks(selectedTracks.filter((item) => item.uri !== uri));
     } else {
       setSelectedTracksUri([...selectedTracksUri, uri]);
+      setSelectedTracks([...selectedTracks, track]);
     }
-  }
+  };
+  const logOut = () => {
+    setToken("");
+    setIsAuthorize(false);
+  };
+
+  console.log(selectedTracksUri);
 
   return (
-      <div className="container">
-          {!isAuthorize && (
-            <a href={getSpotifyLinkAuthorize()}>Login</a>
-          )}
-
-          {isAuthorize && (
-            <SearchBar
-              accessToken={accessToken}
-              onSuccess={(tracks) => onSuccessSearch(tracks)}
-            />
-          )}
-
-          <div className="playlist-content">
-            {tracks.length === 0 && (
-                  <p>No tracks</p>
-                )}
-            <div className="playlist-tracks">
-              {tracks.map((track) => (
-                <Track
-                  key={track.id}
-                  imageUrl={track.album.images[1].url}
-                  title={track.name}
-                  artist={track.artists[0].name}
-                  toggleSelect={() => toggleSelect(track)}
-                />
-              ))}
-            </div>
-          {isAuthorize &&(
+    <div>
+      <ToastContainer />
+      {!isAuthorize && (
+        <div className="login-container">
+          <h2>Please Login</h2>
+          <a href={getSpotifyLinkAuthorize()}>Login</a>
+        </div>
+      )}
+      {isAuthorize && (
+        <div className="home-container">
+          <div className="btn-container">
+            <button href="#" onClick={logOut}>Log Out</button>
+            <h3>Search Track</h3>
             <div>
-              <h3>Create Your Playlist</h3>
-              <FormPlaylist accessToken={accessToken } />
+              <SearchBar
+                token={token}
+                searchResult={(tracks) => searchResultSuccess(tracks)}
+              />
             </div>
-          )}
-            
+            {tracks.length > 0 && (
+              <div className="playlist-container">
+                <h2>Create Playlist</h2>
+                <FormPlaylist
+                  token={token}
+                  userId={user.id}
+                  uri={selectedTracksUri}
+                />
+              </div>
+            )}
           </div>
-
-      </div>
-       );
-    
-      }
+          <div className="container">
+            {tracks.map((e) => (
+              <div className="wrapper">
+                <div className="title-container">
+                  <Track
+                    key={e.uri}
+                    url={e.album.images[1].url}
+                    title={e.name}
+                    artist={e.artists[0].name}
+                    toggleSelect={() => toggleSelect(e)}
+                    select={selectedTracksUri.includes(e.uri)}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 export default LandingPage;
