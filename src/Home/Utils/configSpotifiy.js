@@ -3,7 +3,7 @@ import axios from "axios";
 
 const getTracks = async (text, token) => {
     const response = await axios.get(
-        `${config.SPOTIFY_BASE_URL}/search?type=track&q=${text}&limit=10`, {
+        `${config.SPOTIFY_BASE_URL}/search?type=track&q=${text}&limit=15`, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
