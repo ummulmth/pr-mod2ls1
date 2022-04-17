@@ -6,29 +6,24 @@ import { useSelector } from "react-redux";
 const FormPlaylist = ({ uri }) => {
     const token = useSelector((state) => state.auth.token);
     const userId = useSelector((state) => state.auth.user.id);
+
     const [text, setText] = useState({
         title: "",
         description: "",
-    })
-
-    const [error, setError] = useState({
-        title: "",
     })
 
     const handleInput = (e) => {
         const { name, value } = e.target;
 
         setText({ ...text, [name]: value })
-        setError({ ...error, [name]: "" })
 
     }
-    console.log(error)
+    console.log(text)
 
     const formValidation = () => {
         let isValid = true;
 
         if (text.title.length < 5) {
-            setError({ ...error, title: "Title minimum length is 5 characters" })
             isValid = false;
         }
 
@@ -37,7 +32,7 @@ const FormPlaylist = ({ uri }) => {
     }
 
     const handleSubmit = async (e) => {
-        e.prevenDefault();
+        e.preventDefault();
         if (formValidation()) {
             if (uri.length > 0) {
                 try {
@@ -52,21 +47,19 @@ const FormPlaylist = ({ uri }) => {
                         response.id,
                         uri,
                     );
-
                     toast.success("Playlist has been created");
-                    console.log("SUCCESS")
                     setText({
                         title: "",
                         description: "",
                     })
-                } catch (error) {
-                    toast.error(error);
-                    console.log("ADADADADAD")
+                } catch (e) {
+                    toast.error(e);
                 }
             } else {
                 toast.error("Please select a track")
-                console.log("ERROR")
             }
+        } else {
+            toast.error("Please input minimal title length 5")
         }
     }
 
@@ -80,7 +73,6 @@ const FormPlaylist = ({ uri }) => {
                     type="text"
                     name="title"
                     placeholder="Title"
-                    error={error.title}
                     onChange={handleInput}
                     required
                 />

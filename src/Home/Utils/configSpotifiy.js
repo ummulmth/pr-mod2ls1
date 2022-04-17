@@ -31,12 +31,11 @@ const createPlaylist = async (token, userId, {name, description}) => {
         JSON.stringify({name, description, public: false, collaborative: false}),
         {
             headers: {
-                Authorization: `Bearer ${token}`,
+                "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json",
             }
         }
     )
-    console.log(response.data)
     return response.data;
 }
 
