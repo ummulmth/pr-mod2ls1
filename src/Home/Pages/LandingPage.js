@@ -65,15 +65,6 @@ const LandingPage = () => {
       setSelectedTracks([...selectedTracks, track]);
     }
   };
-  const logOut = () => {
-    dispatch(
-      login({
-        token: "",
-        login: false,
-        user: {},
-      })
-    );
-  };
 
   console.log(selectedTracksUri);
 
@@ -93,7 +84,6 @@ const LandingPage = () => {
           <Route path="/CreatePlaylist">
             <div className="home-container">
               <div className="button-container">
-                <a onClick={logOut}>Logout</a>
                 <h3>Search Track Here</h3>
                 <div>
                   <SearchBar
