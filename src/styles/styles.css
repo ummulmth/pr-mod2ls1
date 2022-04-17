@@ -20,12 +20,15 @@
  padding: 20px;
  box-sizing: border-box;
  border: 1px solid rgba(192, 192, 192, 0.096);
+
  
 }
+
 .title-container:hover {
   background-color: rgba(212, 211, 211, 0.192);
   transition: 0.3s;
 }
+
 .song-container {
   display: flex;
   flex-direction: row;
@@ -36,7 +39,7 @@
 .song-container img {
   width: 175px;
   margin-right: 7px;
-
+ 
 }
 
 .info-container {
@@ -61,11 +64,14 @@
   margin-top: -5px;
   margin-bottom: 20px;
 }
+
 .info-container .title {
   color: white;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
+
 }
+
 .btn-submit {
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
@@ -88,6 +94,7 @@
   letter-spacing: 1px;
   
 }
+
 .btn-selected {
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
@@ -98,14 +105,20 @@
   border-radius: 13px;
   letter-spacing: 1px;
 }
+
 .btn-selected:hover {
   transform: scale(1.15);
   transition: 0.05s;
 }
+
+
+
 .btn:hover {
   transform: scale(1.15);
   transition: 0.05s;
+
 }
+
 a {
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
@@ -118,7 +131,8 @@ a {
   border: 1px solid white;
   cursor: pointer;
 }
-.btn-container {
+
+.button-container {
   background-color: black;
   display: flex;
   height: 755px;
@@ -126,7 +140,10 @@ a {
   align-items: center;
   flex-direction: column;
 }
-.form-search {
+
+
+
+.search {
   background-color: rgb(87, 87, 87);
   margin-right: 20px;
   border: 1px solid rgb(87, 87, 87);
@@ -136,9 +153,11 @@ a {
   color: white;
   font-size: 15px;
 }
+
 h2 {
   color: white;
 }
+
 h3 {
   color: white;
 }
@@ -149,7 +168,9 @@ h3 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
 }
+
 .home-container {
   background-color: black;
   height: 100%
@@ -184,22 +205,22 @@ label {
   color: white;
   font-size: 15px;
 }
-#description {
-    background-color: rgb(87, 87, 87);
-    margin-right: 20px;
-    margin-bottom: 20px;
-    border: 1px solid rgb(87, 87, 87);
 
-    height: 80px;
-    width: 400px;
-    border-radius: 10px;
-    font-family: 'Poppins', sans-serif;
-    color: white;
-    font-size: 15px;
+#description {
+  background-color: rgb(87, 87, 87);
+  margin-right: 20px;
+  margin-bottom: 20px;
+  border: 1px solid rgb(87, 87, 87);
+  height: 80px;
+  width: 400px;
+  border-radius: 10px;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  font-size: 15px;
 }
 
 .form-playlist {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const sliceAcc = createSlice({
+export const accountSlice = createSlice({
     name: "auth",
     initialState: {
         token: "",
@@ -16,5 +16,5 @@ export const sliceAcc = createSlice({
     },
 });
 
-export const {login} = sliceAcc.actions;
-export default sliceAcc.reducer; 
+export const {login} = accountSlice.actions;
+export default accountSlice.reducer;

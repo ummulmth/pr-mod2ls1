@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { addTracksToPlaylist, createPlaylist } from "./configSpotifiy";
 import { useSelector } from "react-redux";
+import "react-toastify/dist/ReactToastify.css"
 
 const FormPlaylist = ({ uri }) => {
     const token = useSelector((state) => state.auth.token);
     const userId = useSelector((state) => state.auth.user.id);
 
+    
     const [text, setText] = useState({
         title: "",
         description: "",
     })
+
 
     const handleInput = (e) => {
         const { name, value } = e.target;
@@ -18,7 +21,9 @@ const FormPlaylist = ({ uri }) => {
         setText({ ...text, [name]: value })
 
     }
+
     console.log(text)
+
 
     const formValidation = () => {
         let isValid = true;
@@ -36,12 +41,10 @@ const FormPlaylist = ({ uri }) => {
         if (formValidation()) {
             if (uri.length > 0) {
                 try {
-                    const response = await createPlaylist(
-                        token,
-                        userId,
-                        { name: text.title, description: text.description }
-                    );
-
+                    const response = await createPlaylist(token, userId, { 
+                        name: text.title, 
+                        description: text.description 
+                    });
                     await addTracksToPlaylist(
                         token,
                         response.id,
@@ -59,7 +62,7 @@ const FormPlaylist = ({ uri }) => {
                 toast.error("Please select a track")
             }
         } else {
-            toast.error("Please input minimal title length 5")
+            toast.error("Minimal Title Length Is 5")
         }
     }
 

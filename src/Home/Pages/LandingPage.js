@@ -9,12 +9,14 @@ import { getProfile } from "../Utils/configSpotifiy";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../sliceAcc/sliceAcc";
 import { BrowserRouter, Redirect, Switch, Route } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css"
 
 const LandingPage = () => {
   const [tracks, setTracks] = useState([]);
-  const [selectedTracksUri, setSelectedTracksUri] = useState([]);
-  const [selectedTracks, setSelectedTracks] = useState([]);
-  const isAuth = useSelector((state) => state.auth.login);
+  const [selectedTrackUri, setSelectedTrackUri] = useState([]);
+  const [selectedTrack, setSelectedTrack] = useState([]);
+
+  const isLogin = useSelector((state) => state.auth.login);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -41,45 +43,41 @@ const LandingPage = () => {
     }
   }, []);
 
-  const getSpotifyLinkAuthorize = () => {
-    // const state = Date.now().toString();
-    const clientId = process.env.REACT_APP_CLIENT_ID;
-
-    return `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=http://localhost:3000/callback/&response_type=token&scope=${config.SCOPE}`;
+  const authorization = () => {
+    return `https://accounts.spotify.com/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=http://localhost:3000/callback/&response_type=token&scope=${config.SCOPE}`;
   };
-
   const searchResultSuccess = (data) => {
     const selectedTracks = data.filter((track) =>
-      selectedTracksUri.includes(track.uri)
+      selectedTrackUri.includes(track.uri)
     );
+
     setTracks([...new Set([...selectedTracks, ...data])]);
   };
 
   const toggleSelect = (track) => {
     const uri = track.uri;
-    if (selectedTracksUri.includes(uri)) {
-      setSelectedTracksUri(selectedTracksUri.filter((item) => item !== uri));
-      setSelectedTracks(selectedTracks.filter((item) => item.uri !== uri));
+
+    if (selectedTrackUri.includes(uri)) {
+      setSelectedTrackUri(selectedTrackUri.filter((item) => item !== uri));
+      setSelectedTrack(selectedTrack.filter((item) => item.uri !== uri));
     } else {
-      setSelectedTracksUri([...selectedTracksUri, uri]);
-      setSelectedTracks([...selectedTracks, track]);
+      setSelectedTrackUri([...selectedTrackUri, uri]);
+      setSelectedTrack([...selectedTrack, track]);
     }
   };
-
-  console.log(selectedTracksUri);
-
   return (
     <div>
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            {!isAuth && (
+            {!isLogin && (
               <div className="login-container">
                 <h2>Please Login</h2>
-                <a href={getSpotifyLinkAuthorize()}>Login</a>
+                <a href={authorization()}>Login</a>
               </div>
             )}
-            {isAuth && <Redirect to="/CreatePlaylist"></Redirect>}
+
+            {isLogin && <Redirect to="/CreatePlaylist"></Redirect>}
           </Route>
           <Route path="/CreatePlaylist">
             <div className="home-container">
@@ -93,7 +91,7 @@ const LandingPage = () => {
                 {tracks.length > 0 && (
                   <div className="playlist-container">
                     <h2>Create Playlist</h2>
-                    <FormPlaylist uri={selectedTracksUri} />
+                    <FormPlaylist uri={selectedTrackUri} />
                   </div>
                 )}
               </div>
@@ -107,7 +105,7 @@ const LandingPage = () => {
                         title={e.name}
                         artist={e.artists[0].name}
                         toggleSelect={() => toggleSelect(e)}
-                        select={selectedTracksUri.includes(e.uri)}
+                        select={selectedTrackUri.includes(e.uri)}
                       />
                     </div>
                   </div>

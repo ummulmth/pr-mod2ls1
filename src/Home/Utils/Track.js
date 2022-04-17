@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Track({ imageUrl, title, artist, toggleSelect, select }) {
+const Track =({ imageUrl, title, artist, toggleSelect, select }) => {
   const [isSelected, setIsSelected] = useState(select);
 
   const handleToggleSelect = () => {
@@ -9,15 +9,28 @@ function Track({ imageUrl, title, artist, toggleSelect, select }) {
   };
 
   return (
-    <div>
-      <img src={imageUrl}  alt="cover" />
-      <p className="title">{title}</p>
-      <p className="artist">{artist}</p>
-        {isSelected? (
-          <button onClick={handleToggleSelect} className="btn-selected">DESELECT</button>
-      ) : <button onClick={handleToggleSelect} className="btn">SELECT</button> }
-            
+    <div className="song-container">
+      <div>
+        <img src={imageUrl} alt="cover" />
+      </div>
+      <div className="info-container">
+        <div className="info-wrapper">
+          <p className="title">{title}</p>
+          <p className="artist">{artist}</p>
         </div>
+        <div>
+          {isSelected ? (
+            <button onClick={handleToggleSelect} className="btn-selected">
+              DESELECT
+            </button>
+          ) : (
+            <button onClick={handleToggleSelect} className="btn">
+              SELECT
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 

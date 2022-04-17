@@ -3,11 +3,11 @@ import axios from "axios";
 
 const getTracks = async (text, token) => {
     const response = await axios.get(
-        `${config.SPOTIFY_BASE_URL}/search?type=track&q=${text}&limit=15`, {
+        `${config.SPOTIFY_BASE_URL}/search?type=track&q=${text}&limit=16`, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
-            }   
+            }
         }
     )
     return response.data;
@@ -54,4 +54,4 @@ const addTracksToPlaylist = async (token, playlistId, uris) => {
     console.log(response.data)
     return response.data;
 }
-export {getTracks, getProfile, createPlaylist, addTracksToPlaylist}; 
+export {getTracks, getProfile, createPlaylist, addTracksToPlaylist};
