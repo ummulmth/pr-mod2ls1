@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { getTracks } from "../Utils/configSpotifiy";
 import { useSelector } from "react-redux";
-import { TextField, Button } from "@mui/material";
 import "react-toastify/dist/ReactToastify.css"
 
 const SearchBar = ({ searchResult }) => {
@@ -29,14 +28,8 @@ const SearchBar = ({ searchResult }) => {
     <>
       <ToastContainer />
       <form onSubmit={searchTracks}>
-        <TextField
-          onChange={handleInput}
-          id="outlined-basic"
-          variant="standard"
-        />
-        <Button variant="contained" color="success">
-          Success
-        </Button>
+        <input onChange={handleInput} className="search" type="text" placeholder="Search Track"></input>
+        <button className="btn-submit">Submit</button>
       </form>
     </>
   );

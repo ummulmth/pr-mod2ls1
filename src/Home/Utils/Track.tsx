@@ -1,9 +1,18 @@
 import React, { useState } from "react";
 
-const Track =({ imageUrl, title, artist, toggleSelect, select }) => {
-  const [isSelected, setIsSelected] = useState(select);
+interface Props {
 
-  const handleToggleSelect = () => {
+  title: string;
+  artist: string;
+  imageUrl: string;
+  toggleSelect: () => void;
+  select: boolean;
+}
+
+const Track: React.FC<Props> = ({ imageUrl, title, artist, toggleSelect, select }) => {
+  const [isSelected, setIsSelected] = useState<Boolean>(select);
+
+  const handleToggleSelect: ()=> void = ()=> {
     setIsSelected(!isSelected);
     toggleSelect();
   };
