@@ -28,7 +28,7 @@ const FormPlaylist = ({ uri }) => {
     const formValidation = () => {
         let isValid = true;
 
-        if (text.title.length < 5) {
+        if (text.title.length <= 12) {
             isValid = false;
         }
 
@@ -62,7 +62,7 @@ const FormPlaylist = ({ uri }) => {
                 toast.error("Please select a track")
             }
         } else {
-            toast.error("Minimal Title Length Is 5")
+            toast.error("Atleast tittle length is 5")
         }
     }
 
